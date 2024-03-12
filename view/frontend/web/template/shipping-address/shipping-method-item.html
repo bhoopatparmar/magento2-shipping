@@ -1,0 +1,49 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<tr class="row"
+    click="element.selectShippingMethod">
+    <td class="col col-method" colspan="2">
+        <input attr="'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
+                    'checked': element.rates().length == 1 || element.isSelected"
+               class="radio"
+               ifnot="method.error_message"
+               ko-checked="element.isSelected"
+               ko-value="method.carrier_code + '_' + method.method_code"
+               type="radio"/>
+        <label text="method.method_title"></label>
+    </td>
+    <td class="col col-price">
+        <each args="element.getRegion('price')" render=""></each>
+    </td>
+
+    <td attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
+        class="col col-carrier"
+        colspan="1"
+        data-bind="visible: !(method.extension_attributes && method.extension_attributes.wexo_shipping_method_image)"
+        text="method.carrier_title"
+    ></td>
+
+    <td attr="'id': 'label_image_' + method.method_code + '_' + method.carrier_code"
+        class="col col-image"
+        colspan="2"
+        data-bind="if: method.extension_attributes && method.extension_attributes.wexo_shipping_method_image"
+    >
+        <img data-bind="attr: { src: method.extension_attributes.wexo_shipping_method_image }" width="75px">
+    </td>
+</tr>
+<tr class="row row-error"
+    if="method.error_message">
+    <td class="col col-error" colspan="4">
+        <div class="message error" role="alert">
+            <div text="method.error_message"></div>
+        </div>
+        <span class="no-display">
+            <input attr="'value' : method.method_code, 'id': 's_method_' + method.method_code"
+                   type="radio"/>
+        </span>
+    </td>
+</tr>

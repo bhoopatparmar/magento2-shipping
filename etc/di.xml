@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Salecto\Shipping\Api\Data\RateInterface" type="Salecto\Shipping\Model\Rate"/>
+    <type name="Salecto\Shipping\Model\Provider\CurrentRate" shared="true"/>
+    <preference for="Salecto\Shipping\Api\Carrier\FlatRateInterface" type="Salecto\Shipping\Model\Carrier\FlatRate"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wexo_shipping_rate_listing_data_source" xsi:type="string">
+                    Salecto\Shipping\Model\ResourceModel\Rate\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Salecto\Shipping\Model\ResourceModel\Rate\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wexo_shipping_rate</argument>
+            <argument name="eventPrefix" xsi:type="string">wexo_shipping_rate_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">shipping_rate_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Salecto\Shipping\Model\ResourceModel\Rate</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
+        <plugin name="wexoShipping" type="Salecto\Shipping\Plugins\Quote\Model\Cart\ShippingMethodConverterPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Api\ShippingInformationManagementInterface">
+        <plugin name="saveWexoShippingData" type="Salecto\Shipping\Plugins\Checkout\ShippingInformationManagementPlugin" sortOrder="100"/>
+    </type>
+    <type name="Salecto\Shipping\Model\ComponentManagement">
+        <arguments>
+            <argument name="carriers" xsi:type="array">
+                <item name="flatrate" xsi:type="object">Salecto\Shipping\Api\Carrier\FlatRateInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Salecto\Shipping\Model\Carrier\FlatRate">
+        <arguments>
+            <argument name="defaultMethodTypeHandler" xsi:type="object">Salecto\Shipping\Model\MethodType\Address</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="wexo_shipping" type="Salecto\Shipping\Plugins\Sales\OrderRepositoryPlugin"/>
+    </type>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Salecto_Shipping::shipping" title="Wexo Shipping" translate="title" module="Salecto_Shipping" sortOrder="80"
+             parent="Magento_Backend::stores" resource="Salecto_Shipping::rates"/>
+        <add id="Salecto_Shipping::rates" title="Shipping Rates" translate="title" module="Salecto_Shipping" sortOrder="10"
+             parent="Salecto_Shipping::shipping" action="wexo_shipping/rate" resource="Salecto_Shipping::rates"/>
+    </menu>
+</config>

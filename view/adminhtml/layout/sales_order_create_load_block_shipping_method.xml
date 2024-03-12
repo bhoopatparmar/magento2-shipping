@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="shipping_method">
+            <block class="Salecto\Shipping\Block\Adminhtml\ShippingAdditional" template="Salecto_Shipping::wexo-shipping/ajaxshippingadditional.phtml" name="shipping.additional">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="wexoShippingAdditionalData" xsi:type="array">
+                                <item name="component" xsi:type="string">
+                                    Salecto_Shipping/js/view/checkout/shipping/additional-data
+                                </item>
+                            </item>
+                            <item name="checkoutProvider" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="wexo-shipping.parcelshop.popup" template="Salecto_Shipping::parcel-shop/popup.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
